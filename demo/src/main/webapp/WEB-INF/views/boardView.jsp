@@ -32,10 +32,14 @@
         <p>${board.content}</p>
       </div>
       <div class="form-group">
-          <%-- <input type="button" value="수정" onclick='location.href="/board/post/${board.bno}"'> --%>
-          <form:form action="/board/post/" method="DELETE">
+       <form:form action="/boardDelete/" method="post">
               <input type="submit" value="삭제">
-          </form:form>
+              <input type="hidden" name="board_num" value="${board.board_num}">
+       </form:form>
+        <form:form action="/boardModify/" method="post">
+              <input type="submit" value="수정">
+              <input type="hidden" name="board_num" value="${board.board_num}">
+       </form:form>  
       </div>
     </div>
 </body>

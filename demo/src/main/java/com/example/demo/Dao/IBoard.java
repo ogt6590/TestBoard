@@ -16,5 +16,6 @@ public interface IBoard {
 	public List<BoardDto> list();
 	public int insert (BoardDto boardDto);
 	public BoardDto view (int board_num);
+	public int delete (int board_num);
 	
 }

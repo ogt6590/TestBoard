@@ -19,5 +19,10 @@
 	<select id="view" resultType="com.example.demo.Dto.BoardDto">
         select * from board where board_num=#{board_num};
     </select>
+    
+     <delete id="delete">
+     	 delete from board where board_num=#{board_num};      
+    </delete>
+    
 		
 </mapper>

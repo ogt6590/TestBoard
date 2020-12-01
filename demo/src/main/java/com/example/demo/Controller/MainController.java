@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,7 @@ public class MainController {
 	
 	@Autowired
 	IBoard boardDao;
-	
-	
+		
 	@GetMapping("/")
 	public String index(Model model) {		
 		model.addAttribute("list",boardDao.list());
@@ -31,10 +32,8 @@ public class MainController {
 	
 	@GetMapping("boardView")
 	public String View(@RequestParam("board_num") int board_num,Model model) {
-		
 		model.addAttribute("board",boardDao.view(board_num));
-		return "boardView";
-		
+		return "boardView";		
 	}
 	
 	//게시글 post 값 받는 컨트롤러
@@ -44,5 +43,13 @@ public class MainController {
 		
 		return "redirect:/";
 	}
-
+	
+	@PostMapping("boardDelete")
+	public String delete(HttpServletRequest request) {
+		String result = request.getParameter("board_num");
+		int board_num  = Integer.parseInt(result);
+		boardDao.delete(board_num);
+		return "redirect:/";
+	}
+		
 }
