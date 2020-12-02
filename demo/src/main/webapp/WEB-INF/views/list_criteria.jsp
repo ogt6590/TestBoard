@@ -33,17 +33,32 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+
+
 	<ul class="pagination">
+
 		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item active"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">4</a></li>
-		<li class="page-item"><a class="page-link" href="#">5</a></li>
+
+		<c:forEach var="i" begin="1" end="${pa.totalPageCount}" step="1"
+			varStatus="status">
+				
+			<c:choose>
+
+	    		<c:when test="${i eq cr.currentPageNo}">
+	        		<li class="page-item active"><a class="page-link" href="#">${i}</a></li> 
+	    		</c:when>
+ 
+	    		<c:otherwise>
+	        		<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+	    		</c:otherwise>
+ 
+			</c:choose>
+				
+		</c:forEach>
+
 		<li class="page-item"><a class="page-link" href="#">Next</a></li>
 	</ul>
-	
+
 	<!-- 현재페이지  -->
 	<h1>${cr.currentPageNo}</h1>
 	<!-- 페이지당출력할 데이터갯수  -->
@@ -58,8 +73,8 @@
 	<h1>${pa.firstPage}</h1>
 	<!-- 마지막 페이지번호 -->
 	<h1>${pa.lastPage}</h1>
-	
-	
+
+
 </body>
 </html>
 
