@@ -1,6 +1,8 @@
 package paging;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Data;
 import lombok.Getter;
@@ -55,5 +57,16 @@ public class Criteria {
 		this.pageSize = 10;
 	}
 
+	public String makeQueryString(int pageNo) {
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("currentPageNo", pageNo)
+				.queryParam("recordsPerPage", recordsPerPage)
+				.queryParam("pageSize", pageSize)			
+				.build()
+				.encode();
+
+		return uriComponents.toUriString();
+	}
 
 }

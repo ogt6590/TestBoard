@@ -35,20 +35,31 @@
 	</table>
 	
 	<ul class="pagination">
-		<!-- disabled가 있으면 마우스 커서가 금지표시로 바뀐다. -->
-		<li class=disabled><a href="#" aria-label="Previous"> <span
-				aria-hidden="true">«</span>
-		</a></li>
-		<!-- 현재 페이지 -->
-		<li class="active"><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li><a href="#" aria-label="Next"> <span aria-hidden="true">»</span>
-		</a></li>
+		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item active"><a class="page-link" href="#">3</a></li>
+		<li class="page-item"><a class="page-link" href="#">4</a></li>
+		<li class="page-item"><a class="page-link" href="#">5</a></li>
+		<li class="page-item"><a class="page-link" href="#">Next</a></li>
 	</ul>
-
+	
+	<!-- 현재페이지  -->
+	<h1>${cr.currentPageNo}</h1>
+	<!-- 페이지당출력할 데이터갯수  -->
+	<h1>${cr.recordsPerPage}</h1>
+	<!-- 화면하단에 출력할 페이지사이즈 -->
+	<h1>${cr.pageSize}</h1>
+	<!-- 총데이터갯수 -->
+	<h1>${pa.totalRecordCount}</h1>
+	<!-- 전체 페이지 개수 -->
+	<h1>${pa.totalPageCount}</h1>
+	<!-- 첫페이지 번호 -->
+	<h1>${pa.firstPage}</h1>
+	<!-- 마지막 페이지번호 -->
+	<h1>${pa.lastPage}</h1>
+	
+	
 </body>
 </html>
 

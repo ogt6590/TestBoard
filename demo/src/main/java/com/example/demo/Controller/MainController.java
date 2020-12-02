@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Dao.IBoard;
 import com.example.demo.Dto.BoardDto;
 
+import paging.Criteria;
 import paging.PaginationInfo;
 
 @Controller
@@ -82,6 +83,8 @@ public class MainController {
 		
 		PaginationInfo paginationInfo = new PaginationInfo(params);
 		
+		Criteria cr=new Criteria();
+		
 		paginationInfo.setTotalRecordCount(boardTotalCount);
 
 		params.setPaginationInfo(paginationInfo);
@@ -89,7 +92,10 @@ public class MainController {
 		//페이징 데이터 가져오기
 		model.addAttribute("list",boardDao.selectBoardList(params));
 		
+		model.addAttribute("cr",cr);
 		
+		model.addAttribute("pa",paginationInfo);
+				
 		return "list_criteria";
 	}
 
