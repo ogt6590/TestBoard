@@ -8,6 +8,11 @@
     <select id="list" resultType="com.example.demo.Dto.BoardDto">
         select * from board;
     </select>
+    
+	 <!-- 페이징 데이터 가져오기 -->
+    <select id="selectBoardList" parameterType="paging.Criteria" resultType="com.example.demo.Dto.BoardDto">
+        SELECT * FROM board LIMIT #{startPage}, #{recordsPerPage};
+    </select> 
 
 	<insert id="insert">
         INSERT INTO board (title, content, writer, date, password)
@@ -24,5 +29,10 @@
      	 delete from board where board_num=#{board_num};      
     </delete>
     
+    <update id="update">
+        update board set content = #{content} where board_num = #{board_num}
+    </update>
+		
+		
 		
 </mapper>
