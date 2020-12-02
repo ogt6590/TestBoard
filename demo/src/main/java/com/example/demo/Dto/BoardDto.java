@@ -10,7 +10,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class BoardDto {
+public class BoardDto extends CommonDto {
 
 	private int board_num; 
 	private String title;

@@ -55,8 +55,5 @@ public class Criteria {
 		this.pageSize = 10;
 	}
 
-	public int getStartPage() {
-		return (currentPageNo - 1) * recordsPerPage;
-	}
 
 }

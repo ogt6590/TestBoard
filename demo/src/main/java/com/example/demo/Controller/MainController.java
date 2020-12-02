@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Dao.IBoard;
 import com.example.demo.Dto.BoardDto;
 
-import paging.Criteria;
+import paging.PaginationInfo;
 
 @Controller
 public class MainController {
@@ -76,8 +76,20 @@ public class MainController {
 	}
 	
 	@GetMapping("/list_criteria")
-	public String list_criteria(Model model,@ModelAttribute("criteria") Criteria criteria) {
-		model.addAttribute("list",boardDao.selectBoardList(criteria));
+	public String list_criteria(Model model,@ModelAttribute("params") BoardDto params) {
+		//총갯수
+		int boardTotalCount = boardDao.selectBoardTotalCount(params);
+		
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		
+		paginationInfo.setTotalRecordCount(boardTotalCount);
+
+		params.setPaginationInfo(paginationInfo);
+		
+		//페이징 데이터 가져오기
+		model.addAttribute("list",boardDao.selectBoardList(params));
+		
+		
 		return "list_criteria";
 	}
 

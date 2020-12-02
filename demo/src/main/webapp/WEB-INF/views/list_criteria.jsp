@@ -33,6 +33,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
 	<ul class="pagination">
 		<!-- disabled가 있으면 마우스 커서가 금지표시로 바뀐다. -->
 		<li class=disabled><a href="#" aria-label="Previous"> <span

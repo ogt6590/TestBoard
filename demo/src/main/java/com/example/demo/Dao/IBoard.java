@@ -21,6 +21,10 @@ public interface IBoard {
 	public int delete (int board_num);
 	public int update (BoardDto boardDto);
 	//페이징 처리 해서 게시글가져오기
-	public List<BoardDto> selectBoardList(Criteria criteria);
+	public List<BoardDto> selectBoardList(BoardDto boardDto);
+	//데이터 총개수 구하기
+	public int selectBoardTotalCount(BoardDto boardDto);
+	
+	
 
 }
