@@ -77,7 +77,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/list_criteria")
-	public String list_criteria(Model model,@ModelAttribute("params") BoardDto params) {
+	public String list_criteria(@RequestParam(value="currentPageNo" , defaultValue="1") 
+				int currentPageNo , Model model,@ModelAttribute("params") BoardDto params) {
+			
 		//총갯수
 		int boardTotalCount = boardDao.selectBoardTotalCount(params);
 		
