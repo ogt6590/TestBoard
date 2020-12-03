@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.Dao.IBoard;
 import com.example.demo.Dto.BoardDto;
 
+import ch.qos.logback.core.util.SystemInfo;
 import paging.Criteria;
 import paging.PaginationInfo;
 
@@ -57,18 +58,21 @@ public class MainController {
 		String fileName=null;
 		
 		MultipartFile uploadFile = boardDto.getUploadFile();
+		
 		//파일이 있을경우 처리 if문
 		if (!uploadFile.isEmpty()) {
 			//사용자가 올린 파일이름 가져오기
 			String originalFileName = uploadFile.getOriginalFilename();			
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			//파일 진짜 이름 디비에 저장하기 위해 값넣기
+			boardDto.setOriginalFileName(originalFileName);
 			UUID uuid = UUID.randomUUID();	//UUID 구하기 uudi 란 정보식별을 위해 사용하는 id
 			fileName=uuid+"."+ext;
 			uploadFile.transferTo(new File("C:\\upload\\" + fileName));
 		}
 		
 		boardDto.setFileName(fileName);
-				
+			
 		boardDao.insert(boardDto);
 		
 		return "redirect:/";

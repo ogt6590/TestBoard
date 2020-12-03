@@ -16,12 +16,20 @@ public class BoardDto extends CommonDto {
 	private String fileName;
 	//업로드한 파일 
 	private MultipartFile uploadFile;
+	private String originalFileName;
 	private int board_num; 
 	private String title;
 	private String content;
 	private String writer;
 	private String date;
 	private String password;
+	
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
 	
 	public String getFileName() {
 		return fileName;
