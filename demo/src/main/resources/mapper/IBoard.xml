@@ -20,9 +20,9 @@
     </select> 
 
 	<insert id="insert">
-        INSERT INTO board (title, content, writer, date, password)
+        INSERT INTO board (title, content, writer, date, password,filename)
 	   	    values(
-	   	    #{title},#{content},#{writer},NOW(),#{password}
+	   	    #{title},#{content},#{writer},NOW(),#{password},#{fileName}
 	   	    )          
     </insert>
 	

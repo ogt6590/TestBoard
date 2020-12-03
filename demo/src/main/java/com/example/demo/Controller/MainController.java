@@ -53,6 +53,7 @@ public class MainController {
 	//게시글 post 값 받는 컨트롤러 글작성부분
 	@PostMapping("boardPost")
 	public String post(@ModelAttribute BoardDto boardDto) throws IllegalStateException, IOException {
+		
 		String fileName=null;
 		
 		MultipartFile uploadFile = boardDto.getUploadFile();

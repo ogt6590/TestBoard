@@ -14,10 +14,10 @@
 <body>
     <h3>게시글 작성</h3>
     <div style="padding : 30px;">
-        <form method="POST" action="/boardPost">
+        <form method="POST" action="/boardPost" enctype="multipart/form-data">
           <div class="form-group">
             <label>제목</label>
-            <input type="text" name="title" class="form-control" enctype="multipart/form-data">
+            <input type="text" name="title" class="form-control">
           </div>
           <div class="form-group">
             <label>작성자</label>
@@ -35,7 +35,7 @@
             <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
             <div class="col-sm-10">
                 <div class="custom-file" id="inputFile">
-                    <input name="file" type="file" class="custom-file-input" id="customFile">
+                    <input name="uploadFile" type="file" class="custom-file-input" id="customFile">
                     <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
                 </div>
             </div>
