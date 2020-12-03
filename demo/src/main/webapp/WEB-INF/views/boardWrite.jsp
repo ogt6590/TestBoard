@@ -17,7 +17,7 @@
         <form method="POST" action="/boardPost">
           <div class="form-group">
             <label>제목</label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" class="form-control" enctype="multipart/form-data">
           </div>
           <div class="form-group">
             <label>작성자</label>
@@ -31,7 +31,16 @@
             <label>내용</label>
             <textarea name="content" class="form-control" rows="5"></textarea>
           </div>
-          <button type="submit" class="btn btn-default">작성</button>
+           <div class="form-group row">  <!-- 파일업로드 부분  -->
+            <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+            <div class="col-sm-10">
+                <div class="custom-file" id="inputFile">
+                    <input name="file" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
+                </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default">작성</button> 	
         </form>
     </div>
 </body>

@@ -1,7 +1,12 @@
 package com.example.demo.Controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Dao.IBoard;
 import com.example.demo.Dto.BoardDto;
 
 import paging.Criteria;
 import paging.PaginationInfo;
+
+
+
 
 @Controller
 public class MainController {
@@ -27,9 +36,9 @@ public class MainController {
 	@GetMapping("/")
 	public String index(Model model) {		
 		model.addAttribute("list",boardDao.list());
-		return "board";
+		return "redirect:list_criteria";
 	}
-
+	
 	@GetMapping("boardWrite")
 	public String write() {
 		return "boardWrite";
@@ -41,9 +50,24 @@ public class MainController {
 		return "boardView";		
 	}
 	
-	//게시글 post 값 받는 컨트롤러
+	//게시글 post 값 받는 컨트롤러 글작성부분
 	@PostMapping("boardPost")
-	public String post(@ModelAttribute BoardDto boardDto) {
+	public String post(@ModelAttribute BoardDto boardDto) throws IllegalStateException, IOException {
+		String fileName=null;
+		
+		MultipartFile uploadFile = boardDto.getUploadFile();
+		//파일이 있을경우 처리 if문
+		if (!uploadFile.isEmpty()) {
+			//사용자가 올린 파일이름 가져오기
+			String originalFileName = uploadFile.getOriginalFilename();			
+			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			UUID uuid = UUID.randomUUID();	//UUID 구하기 uudi 란 정보식별을 위해 사용하는 id
+			fileName=uuid+"."+ext;
+			uploadFile.transferTo(new File("C:\\upload\\" + fileName));
+		}
+		
+		boardDto.setFileName(fileName);
+				
 		boardDao.insert(boardDto);
 		
 		return "redirect:/";
