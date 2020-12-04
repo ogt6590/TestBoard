@@ -37,7 +37,9 @@
     <update id="update">
         update board set content = #{content} where board_num = #{board_num}
     </update>
-		
-		
+	
+	<select id="filename" resultType="String">	
+		SELECT originalFileName from board where filename=#{filename}	
+	</select>
 		
 </mapper>

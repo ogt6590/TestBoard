@@ -9,12 +9,18 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.Dao.IBoard;
+
 @Controller
 public class FileDownController {
-
+	
+	@Autowired
+	IBoard boardDao;
+	
 	@RequestMapping(value = "fileDownload")
 	public void fileDownload4(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// String path = request.getSession().getServletContext().getRealPath("저장경로");
@@ -22,6 +28,9 @@ public class FileDownController {
 		//uuid 사용한 파일이름	
 		String filename = request.getParameter("fileName");
 		String realFilename = "";
+		String downName="";
+		
+		downName=boardDao.filename(filename);
 		
 		try {
 			//유저의 시스템 정보 
@@ -29,10 +38,10 @@ public class FileDownController {
 			// 사용자가 익스플로어 인지 크롬인지 파악
 			if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
 				//인코딩을 utf-8로 바꾼다 다운받기위해 공백을 %20 으로 바꿈 왜바꾸는지는 아직도 의문
-				filename = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+				downName = URLEncoder.encode(downName, "UTF-8").replaceAll("\\+", "%20");
 			} else {
 				//브라우저별로 달라서 위에 경우가 아니면 밑에 꺼로 utf-8 변경
-				filename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
+				downName = new String(downName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 		} catch (UnsupportedEncodingException ex) {
 			//인코딩이 지원되지 않는 경우
@@ -53,7 +62,8 @@ public class FileDownController {
 		//Binary 란 Data를 ASCII 영역의 문자로만 이루어진 문자열로 바꾸는 인코딩 방법
 		response.setHeader("Content-Transfer-Encoding", "binary;");
 		//Content-Disposition 를 attachment; filename과 함께주면 Body 오는 값을 다운로드 받으라는 뜻이 된다
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+		//다운받는 파일명지정
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + downName + "\"");
 		try {
 			OutputStream os = response.getOutputStream();
 			FileInputStream fis = new FileInputStream(realFilename);
@@ -62,6 +72,8 @@ public class FileDownController {
 			byte[] bytes = new byte[512];
 
 			while ((ncount = fis.read(bytes)) != -1) {
+				//지정된 바이트 배열의 바이트를 파일 출력 스트림에 사용
+				//0 에서 시작해서 ncount 만큼데이터를 읽는거 같다
 				os.write(bytes, 0, ncount);
 			}
 			

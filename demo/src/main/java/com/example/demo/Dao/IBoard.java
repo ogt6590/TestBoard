@@ -24,6 +24,8 @@ public interface IBoard {
 	public List<BoardDto> selectBoardList(BoardDto boardDto);
 	//데이터 총개수 구하기
 	public int selectBoardTotalCount(BoardDto boardDto);
+	//저장된 파일이름 구하기
+	public String filename(String filename);
 	
 	
 
